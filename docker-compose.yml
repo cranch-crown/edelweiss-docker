@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  php-fpm:
+    build: ./php-fpm
+    container_name: php-fpm
+    ports:
+      - 9000:9000
+    volumes:
+      - ./app:/var/www/html
+    working_dir: /var/www/html
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./app:/var/www/html
+    working_dir: /var/www/html
+
+  database:
+    image: postgres
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
