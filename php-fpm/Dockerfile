@@ -28,3 +28,5 @@ ENV PATH $PATH:/composer/vendor/bin
 
 #Laravelインストール
 RUN composer global require "laravel/installer"
+
+RUN /usr/local/etc/php-fpm.d/www.conf
