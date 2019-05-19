@@ -1,13 +1,6 @@
 version: "3.7"
 
 services:
-  nginx:
-    build: ./nginx
-    ports:
-      - 8080:80
-    volumes:
-      - ./app:/var/www/html
-    working_dir: /var/www/html
 
   php-fpm:
     build: ./php-fpm
@@ -16,11 +9,20 @@ services:
       - 9000:9000
     volumes:
       - ./app:/var/www/html
-      - ./php-fpm/conf:/usr/local/etc/php-fpm.d
+    working_dir: /var/www/html
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./app:/var/www/html
     working_dir: /var/www/html
 
   database:
     image: postgres
+    container_name: postgres
     ports:
       - 5432:5432
     restart: always
